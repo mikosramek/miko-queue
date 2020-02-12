@@ -1,0 +1,14 @@
+{
+  "name": "miko-queue",
+  "version": "1.0.0",
+  "description": "A discord bot for nodejs practice",
+  "main": "bot.js",
+  "scripts": {
+    "test": "dev-run"
+  },
+  "author": "mikosramek",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
+}

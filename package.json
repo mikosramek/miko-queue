@@ -2,10 +2,10 @@
   "name": "miko-queue",
   "version": "1.0.0",
   "description": "A discord bot for nodejs practice",
-  "main": "bot.js",
+  "main": "./src/bot.js",
   "scripts": {
     "test": "dev-run",
-    "start": "node bot.js"
+    "start": "node ./src/bot.js"
   },
   "author": "mikosramek",
   "license": "ISC",

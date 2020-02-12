@@ -18,7 +18,7 @@ const get = function(url, query) {
   });
 }
 
-magic.card = async function(query) {
+magic.cardlookup = async function(query) {
   try {
     const card = await get('https://api.scryfall.com/cards/named?fuzzy=', query);
     const { name, mana_cost, type_line, oracle_text, artist } = card;

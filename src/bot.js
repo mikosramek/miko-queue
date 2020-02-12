@@ -1,6 +1,6 @@
 'use strict'
 if(process.env.NODE_ENV !== 'production') { require('dotenv').config() }
-const config = require('./config.json');
+const config = require('../config.json');
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -22,7 +22,7 @@ client.on('message', async (message) => {
     const response = await controller.parseCommand(content[0], content.slice(1));
     channel.send(response);
   }catch(e){
-    if(e) { channel.send(`\:warning:${e}\:warning:`); }
+    if(e) { channel.send(e); }
   }
 });
 

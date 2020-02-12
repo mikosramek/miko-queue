@@ -22,9 +22,8 @@ client.on('message', async (message) => {
     const response = await controller.parseCommand(content[0], content.slice(1));
     channel.send(response);
   }catch(e){
-    if(e) { channel.send(e); }
+    if(e) { channel.send(`\:warning:${e}\:warning:`); }
   }
-  // channel.send
 });
 
 client.login(process.env.BOT_TOKEN);

@@ -4,11 +4,15 @@
   "description": "A discord bot for nodejs practice",
   "main": "bot.js",
   "scripts": {
-    "test": "dev-run"
+    "test": "dev-run",
+    "start": "node bot.js"
   },
   "author": "mikosramek",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.5.1"
+    "axios": "^0.19.2",
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.2.0",
+    "xmlhttprequest": "^1.8.0"
   }
 }

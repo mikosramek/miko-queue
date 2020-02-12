@@ -1,6 +1,5 @@
 'use strict'
-// const dotenv = require('dotenv');
-// dotenv.config();
+if(process.env.NODE_ENV !== 'production') { require('dotenv').config() }
 const config = require('./config.json');
 
 const Discord = require('discord.js');
@@ -14,7 +13,9 @@ client.once('ready', () => {
 });
 
 client.on('message', async (message) => {
-  const content = message.content.split(' ');
+  if (message.author.bot) return;
+
+  const content = message.content.split(/ +/);
   const sender = message.author.username;
   const channel = message.channel;
   try {

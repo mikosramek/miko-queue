@@ -2,17 +2,18 @@
 
 const magic = require('./command-libraries/magic');
 const stackoverflow = require('./command-libraries/stackoverflow');
+const ageOfSigmarWiki = require('./command-libraries/ageofsigmar-wiki');
 
-const commandLibrary = [ magic, stackoverflow ];
+const commandLibrary = [ magic, stackoverflow, ageOfSigmarWiki ];
 
 const commander = {};
 
 commander.Controller = function(config) {
   this.prefix = config.prefix;
 }
-commander.Controller.prototype.searchForACard = function(query){
-  return magic.search(query);
-}
+// commander.Controller.prototype.searchForACard = function(query){
+//   return magic.search(query);
+// }
 
 commander.Controller.prototype.parseCommand = function(command, ...parameters) {
   return new Promise(async (resolve, reject) => {

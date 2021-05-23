@@ -31,7 +31,8 @@ magic.card = async function(query) {
     cardEmbed.addField('Flavour Text', flavor_text);
     cardEmbed.addFooter(artist);
     return cardEmbed.embed;
-  }catch(e) {
+  }
+  catch(e) {
     return `Search failed: ${e.details}`;
   }
 }

@@ -9,12 +9,15 @@ const Embed = function(title, color, url, image) {
   url ? this.embed.setURL(url) : null;
   image ? this.embed.setImage(image) : null;
 };
-Embed.prototype.addField = function(title, text, inline){
+Embed.prototype.addField = function(title, text = '-', inline = false){
   this.embed.addField(
     title,
-    text ? text : '-',
-    inline ? inline : false
+    text,
+    inline
   );
+}
+Embed.prototype.addBreak = function(inline = false) {
+  this.embed.addBlankField(inline);
 }
 Embed.prototype.addFooter = function(...footerInfo) {
   const info = [...footerInfo];

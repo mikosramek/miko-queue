@@ -28,7 +28,7 @@ client.on('message', async (message) => {
   const sender = message.author.username;
   const channel = message.channel;
   try {
-    const response = await controller.parseCommand(content[0], content.slice(1));
+    const response = await controller.parseCommand(message, content[0], content.slice(1));
     channel.send(response);
   }catch(e){
     if(e) { channel.send(e); }

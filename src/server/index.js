@@ -1,4 +1,6 @@
-process.env.NODE_ENV === 'production' ? null : require('dotenv').config();
+if(process.env.NODE_ENV !== 'production') { require('dotenv').config() }
+
+const IS_DEV = process.env.DEV || false;
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -23,5 +25,9 @@ const serverInit = () => {
     console.log(`Express server running on port: ${PORT}`)
   });
 };
+
+if (!IS_DEV) {
+  serverInit();
+}
 
 module.exports = serverInit;

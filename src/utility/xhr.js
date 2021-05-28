@@ -9,7 +9,14 @@ XHR.get = function(url, query) {
     xhr.open('GET', `${encodeURI(url+query)}`);
     xhr.onload = function() {
       if(xhr.status === 200) {
-        resolve(JSON.parse(xhr.responseText));
+        try {
+          const response = JSON.parse(xhr.responseText);
+          resolve(response);
+        }
+        catch (error) {
+          console.error('xhr.js@onload:', error.message);
+          reject(error);
+        }
       } else {
         const errorMessage = JSON.parse(xhr.responseText);
         reject(errorMessage);

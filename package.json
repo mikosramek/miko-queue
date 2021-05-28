@@ -5,7 +5,8 @@
   "main": "./src/bot.js",
   "scripts": {
     "test": "dev-run",
-    "start": "nodemon ./src/bot.js"
+    "start": "nodemon ./src/bot.js",
+    "start:express": "nodemon ./src/server/index.js"
   },
   "author": "mikosramek",
   "license": "ISC",

@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const notifications = require('./route/notifications');
+const proxy = require('./route/proxy');
 
 const PORT = process.env.PORT || 3000;
 
@@ -16,6 +17,7 @@ const serverInit = () => {
   app.use(bodyParser.urlencoded({extended:true}));
 
   app.use('/notifications/', notifications);
+  app.use('/proxy/', proxy);
 
   app.use('/', (req, res) => {
     res.status(404).send('No endpoint here!');
@@ -26,8 +28,6 @@ const serverInit = () => {
   });
 };
 
-if (!IS_DEV) {
-  serverInit();
-}
+serverInit();
 
 module.exports = serverInit;

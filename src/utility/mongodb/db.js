@@ -22,7 +22,6 @@ class DB {
       const gw2 = this.client.db('gw2').collection('users');
       const entry = await gw2.find({ });
       const data = await entry.next();
-      console.info(data, 'db.js@queryDB');
       const { api_key } = data;
       if (!data || !api_key) {
         await this.client.close();

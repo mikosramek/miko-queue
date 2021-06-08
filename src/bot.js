@@ -8,6 +8,8 @@ const client = new Discord.Client();
 const commander = require('./commandController');
 const controller = new commander.Controller(config);
 
+const IS_DEV = process.env.DEV || false;
+
 client.once('ready', () => {
     console.log('Bot up and running!');
 });

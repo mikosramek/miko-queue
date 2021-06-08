@@ -4,8 +4,9 @@ const magic = require('./command-libraries/magic');
 const stackoverflow = require('./command-libraries/stackoverflow');
 const ageOfSigmarWiki = require('./command-libraries/ageofsigmar-wiki');
 const debug = require('./command-libraries/debug');
+const gw2 = require('./command-libraries/gw2/gw2');
 
-const commandLibrary = [ magic, stackoverflow, ageOfSigmarWiki, debug ];
+const commandLibrary = [ magic, stackoverflow, ageOfSigmarWiki, debug, gw2 ];
 
 const commander = {};
 
@@ -29,8 +30,8 @@ commander.Controller.prototype.parseCommand = function(message, command, ...para
         library.forEach(command => response += `\`${this.prefix}${command}\`, `);
         resolve(response.slice(0, response.length - 2));
       }
-      for(let i = 0; i < commandLibrary.length; i++){
-        if(c in commandLibrary[i]){
+      for (let i = 0; i < commandLibrary.length; i++){
+        if (c in commandLibrary[i]){
           const r = await commandLibrary[i][c](parameters, message);
           resolve(r);
         }

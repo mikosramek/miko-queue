@@ -23,9 +23,11 @@ client.on('message', async (message) => {
   const channel = message.channel;
   try {
     const response = await controller.parseCommand(message, content[0], content.slice(1));
-    channel.send(response);
-  }catch(e){
-    if(e) { channel.send(e); }
+    if (response) {
+      channel.send(response);
+    }
+  } catch(e) {
+    if (e) { channel.send(e); }
   }
 });
 

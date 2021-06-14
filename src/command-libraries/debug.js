@@ -1,9 +1,27 @@
 const Embed = require('../utility/embed');
 
 const debug = {};
+const ADMINS = process.env.ADMIN;
 
-debug.info = function(_query, message) {
+const checkPrivilege = (message) => {
+  try {
+    const { id } = message.author;
+    const allowed = ADMINS.split('|');
+    return allowed.includes(id);
+  }
+  catch (error) {
+    console.error('debug.js@checkPrivilege:', error.message);
+    return error.message;
+  }
+}
+
+
+debug['d-info'] = function(_query, message) {
+  if (!checkPrivilege(message)) return null;
   const { id, name, guild } = message.channel;
+  if (!guild) {
+    return `${name ? name : 'Chat'} : ${id}`;
+  }
   const { id : guildID, name : guildName} = guild;
 
   const debugEmbed = new Embed(`${guildName} - ${name}`, '#ffffff', null, null);
@@ -12,7 +30,18 @@ debug.info = function(_query, message) {
   return debugEmbed.embed;
 }
 
-debug['channel-info'] = function(_query, message) {
+debug['d-check-privilege'] = function(_query, message) {
+  if (checkPrivilege(message)) {
+    console.info(process.env , 'debug.js@');
+    return 'Allowed';
+  }
+  else {
+    return null;
+  }
+};
+
+debug['d-channel-info'] = function(_query, message) {
+  if (!checkPrivilege(message)) return null;
   const { id, name, nsfw } = message.channel;
 
   const debugEmbed = new Embed(`${name}`, '#ffffff', null, null);
@@ -21,7 +50,8 @@ debug['channel-info'] = function(_query, message) {
   return debugEmbed.embed;
 }
 
-debug['guild-info'] = function(_query, message) {
+debug['d-guild-info'] = function(_query, message) {
+  if (!checkPrivilege(message)) return null;
   const { guild } = message.channel;
   const { id : guildID, name : guildName, region, icon, channels, roles, members } = guild;
 
@@ -40,7 +70,8 @@ debug['guild-info'] = function(_query, message) {
   return debugEmbed.embed;
 }
 
-debug['user-info'] = function(_query, message) {
+debug['d-user-info'] = function(_query, message) {
+  if (!checkPrivilege(message)) return null;
   const { id : userId, username, discriminator, avatar } = message.author;
 
   const avatarURL = `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`;

@@ -1,11 +1,12 @@
+const pvp = {};
 
+pvp['pvp-stats'] = async function(_query, discordID) {
+  try {
+    return `http://localhost:1234/image/gw2/pvp/${discordID}`;
+  }
+  catch (error) {
+    console.error('pvp.js@stats:', error.message);
+  }
+}
 
-/*
-
-https://wiki.guildwars2.com/wiki/API:2/pvp/stats
- https://api.guildwars2.com/v2/pvp/stats
- Authorization: Bearer <access token>
-
-https://wiki.guildwars2.com/wiki/API:2/pvp/games
-
- */
+module.exports = pvp;

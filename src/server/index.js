@@ -9,6 +9,7 @@ const cors = require('cors');
 const notifications = require('./route/notifications');
 const proxy = require('./route/proxy');
 const imageRouter = require('./route/imagesRouter');
+const debug = require('./route/debug');
 
 const PORT = process.env.PORT || 3000;
 
@@ -20,6 +21,7 @@ const serverInit = () => {
   app.use('/notifications/', notifications);
   app.use('/proxy/', proxy);
   app.use('/image/', imageRouter);
+  app.use(debug);
 
   app.use('/', (req, res) => {
     res.status(404).send('No endpoint here!');

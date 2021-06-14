@@ -1,6 +1,7 @@
 const _get = require('lodash.get');
 const config = require('../../../config.json');
 const api = require('./api');
+const player = require('./player');
 const pvp = require('./pvp');
 
 
@@ -13,7 +14,7 @@ const pvp = require('./pvp');
 
 const GuildWars2 = {};
 
-const subCommands = [ api ];
+const subCommands = [ api, player, pvp ];
 
 const helpCommander = {
   help : () => {

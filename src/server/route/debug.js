@@ -8,9 +8,10 @@ router.post('/debug/env', async (req, res) => {
       const  {
         API_USER,
         API_PW,
-        MONGO_DB_PW,BOT_TOKEN,
-        STACK_APPS_TOKEN,
+        MONGO_DB_PW,
         MONGO_DB_USER,
+        BOT_TOKEN,
+        STACK_APPS_TOKEN,
         ADMIN,
         CHANNEL_ID,
         GUILD_ID,

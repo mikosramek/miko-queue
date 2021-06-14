@@ -4,6 +4,7 @@ const IS_DEV = process.env.DEV || false;
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const rateLimit = require("express-rate-limit");
 const cors = require('cors');
 
 const notifications = require('./route/notifications');
@@ -13,10 +14,16 @@ const debug = require('./route/debug');
 
 const PORT = process.env.PORT || 3000;
 
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
+
 const serverInit = () => {
   const app = express();
   app.use(cors());
   app.use(bodyParser.urlencoded({extended:true}));
+  app.use(limiter);
 
   app.use('/notifications/', notifications);
   app.use('/proxy/', proxy);

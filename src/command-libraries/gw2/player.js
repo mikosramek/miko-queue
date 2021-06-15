@@ -13,7 +13,7 @@ const player = {};
 
 player.account = async function(_query, discordID) {
   try {
-    const key = await db.queryDB(discordID);
+    const { api_key : key } = await db.queryDB(discordID);
     const response = await XHR.get(GW2_BASE, `account?access_token=${key}`);
     /*
       {

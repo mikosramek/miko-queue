@@ -47,7 +47,7 @@ GuildWars2.gw2 = async function(query, message) {
       }
     }
 
-    return generateError('Under Construction');
+    return generateError(`${subCommand} doesn't exist`);
   }
   catch (error) {
     console.error('gw2.js@gw2:', error.message);

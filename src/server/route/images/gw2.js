@@ -11,7 +11,7 @@ const KEYS = require('../../util/cache-keys');
 router.get('/pvp/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const key = await db.queryDB(id);
+    const { api_key : key } = await db.queryDB(id);
 
     const gamesURL = `https://api.guildwars2.com/v2/pvp/games?access_token=${key}`;
     const listOfMatches = (await axios.get(gamesURL)).data;
@@ -101,7 +101,7 @@ router.get('/pvp/:id', async (req, res) => {
   }
   catch (error) {
     console.error('gw2.js@:', error.message);
-    res.status(400).send(error);
+    res.status(400).send(`Something along the way returned status ${error.response.status}, probably not enough access for the stored api key.`);
   }
 });
 

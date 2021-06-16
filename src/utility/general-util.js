@@ -8,6 +8,12 @@
   return `${years} y | ${days} d | ${hours} h | ${minutes} m | ${seconds} s`;
 }
 
+function timestamp() {
+  const now = new Date();
+  return `${now.getFullYear()}${now.getHours()}${now.getMinutes()}`;
+}
+
 module.exports = {
-  secondsToString
+  secondsToString,
+  timestamp
 }

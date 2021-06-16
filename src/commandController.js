@@ -5,17 +5,15 @@ const stackoverflow = require('./command-libraries/stackoverflow');
 const ageOfSigmarWiki = require('./command-libraries/ageofsigmar-wiki');
 const debug = require('./command-libraries/debug');
 const gw2 = require('./command-libraries/gw2/gw2');
+const notion = require('./command-libraries/notion');
 
-const commandLibrary = [ magic, stackoverflow, ageOfSigmarWiki, debug, gw2 ];
+const commandLibrary = [ debug, magic, stackoverflow, ageOfSigmarWiki, gw2, notion ];
 
 const commander = {};
 
 commander.Controller = function(config) {
   this.prefix = config.prefix;
 }
-// commander.Controller.prototype.searchForACard = function(query){
-//   return magic.search(query);
-// }
 
 commander.Controller.prototype.parseCommand = function(message, command, ...parameters) {
   return new Promise(async (resolve, reject) => {

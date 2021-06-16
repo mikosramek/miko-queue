@@ -4,8 +4,9 @@ Currently using the command signifier of `$`.
 
 ### Tech Stack:
 
- - Nodejs
+ - mongodb
  - express
+ - nodejs
  - discord.js
  
  Deployed on `Heroku`.
@@ -15,10 +16,24 @@ Currently using the command signifier of `$`.
 
 - Magic Cards
 - Age of Sigmar Fandom Wiki
+- HaM Games Notion
 
 ### Reminders
 
 - Endpoint to send a motivational message to the channel
+
+### Guild Wars 2 Utility
+
+- Storing / Getting API key in mongodb
+- Account data lookup
+- Getting a graph for ranked spvp MMR changes
+
+### Debug
+
+- Locked behind soft-auth
+- Getting Channel info
+- Getting User info
+- Getting Guild info
 
 ## Future Plans
 

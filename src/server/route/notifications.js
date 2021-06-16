@@ -2,20 +2,16 @@ const router = require('express').Router();
 const Embed = require('../../utility/embed');
 const DiscordUtil = require('../discord-handler');
 
-const messages = [
-  `LET'S GOOOOOOO`,
-  `LET'S FUCKING GOOOOO`,
-  `GET YOUR LAZY ASS UP`,
-  `🔥🔥🔥🔥🔥🔥👈🚶`
-];
+const messages = require('../data/walk-messages');
 
 const GUILD_ID = process.env.GUILD_ID;
 const CHANNEL_ID = process.env.CHANNEL_ID;
 
 router.post('/walk', async (req, res) => {
   try {
-    const name = 'walmk time?'; //messages[Math.floor(Math.random() * messages.length)];
-    const imageUrl = 'https://i.kym-cdn.com/photos/images/original/001/891/005/1e3.jpg'; //'https://i.kym-cdn.com/photos/images/newsfeed/001/852/171/895';
+    const message = messages[Math.floor(Math.random() * messages.length)];
+    const name = message.text;
+    const imageUrl = message.image;
     const cardEmbed = new Embed(name, '#ffffff', null, imageUrl);
     await DiscordUtil.sendMessage(GUILD_ID, CHANNEL_ID, cardEmbed.embed);
     res.status(200).send('Sent Discord Message.');

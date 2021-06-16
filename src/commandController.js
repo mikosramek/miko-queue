@@ -5,9 +5,9 @@ const stackoverflow = require('./command-libraries/stackoverflow');
 const ageOfSigmarWiki = require('./command-libraries/ageofsigmar-wiki');
 const debug = require('./command-libraries/debug');
 const gw2 = require('./command-libraries/gw2/gw2');
-const notion = require('./command-libraries/notion');
+// const notion = require('./command-libraries/notion');
 
-const commandLibrary = [ debug, magic, stackoverflow, ageOfSigmarWiki, gw2, notion ];
+const commandLibrary = [ debug, magic, stackoverflow, ageOfSigmarWiki, gw2 ];
 
 const commander = {};
 

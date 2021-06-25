@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Embed = require('../../utility/embed');
-const DiscordUtil = require('../discord-handler');
+const DiscordUtil = require('../util/discord-handler');
 
 const messages = require('../data/walk-messages');
 

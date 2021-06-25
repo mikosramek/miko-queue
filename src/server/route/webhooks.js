@@ -7,7 +7,8 @@ const CHANNEL_ID = process.env.DEBUG_CHANNEL_ID;
 
 router.post('/heroku', async (req, res) => {
   try {
-    const { app, head, git_log } = req.body;
+    const { app, head, git_log, ...rest } = req.body;
+    console.log(rest);
     const cardEmbed = new Embed(`${app} update`, '#ffffff', null, null);
     cardEmbed.addField('Commit:', head);
     cardEmbed.addField('Update:', git_log);

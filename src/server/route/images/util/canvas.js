@@ -110,7 +110,7 @@ const createPVPStatsCanvas = async function ({ name = '', matchResults = [], hea
   let lowest = rating;
   let trackedRating = rating;
   const ratings = [];
-  matchResults.reverse().forEach(({ rating_change, profession }, i) => {
+  matchResults.reverse().forEach(({ rating_change = 0, profession }, i) => {
     ratings[i] =  {
       trackedRating,
       rating_change,

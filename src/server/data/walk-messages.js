@@ -22,5 +22,9 @@ module.exports = [
   {
     text : 'Heebo says walk time',
     image : 'https://i.kym-cdn.com/photos/images/newsfeed/001/852/217/0cc.jpg'
+  },
+  {
+    text : 'CRUMBY EXPLORATION TIME',
+    image : 'https://i.redd.it/fbto9pt254051.jpg'
   }
 ];

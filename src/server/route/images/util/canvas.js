@@ -232,7 +232,10 @@ const createPVPStatsCanvas = async function ({ name = '', matchResults = [], hea
   })
 
 
-  const change = matchResults.reduce((total, match) => total + match.rating_change, 0);
+  const change = matchResults.reduce((total, match) => {
+    const change = match.rating_change;
+    return total + (change ? change : 0);
+  }, 0);
   addText(ctx, `${rating} (${change >=0 ? '+' : ''}${change})`, 18, { x : width - xOffset, y : yOffset + 20 }, 'right');
 
   return canvas;

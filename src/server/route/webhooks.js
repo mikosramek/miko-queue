@@ -7,13 +7,28 @@ const CHANNEL_ID = process.env.DEBUG_CHANNEL_ID;
 
 router.post('/heroku', async (req, res) => {
   try {
-    const { app, head, git_log, ...rest } = req.body;
-    console.log(rest);
-    const cardEmbed = new Embed(`${app} update`, '#ffffff', null, null);
-    cardEmbed.addField('Commit:', head);
-    cardEmbed.addField('Update:', git_log);
-    await DiscordUtil.sendMessage(GUILD_ID, CHANNEL_ID, cardEmbed.embed);
-    res.status(200).send();
+    const payload = req.body;
+
+    console.log(req);
+    console.log('***** PAYLOAD ****');
+    console.log(payload);
+    // console.log(rest);
+    // console.info({ data }, 'webhooks.js@');
+    // console.log(req);
+
+    // app.name
+    // status
+    // release.version
+    // slug.commit
+    // slug.commit_description
+
+    // const { app } = payload.data;
+
+    // const cardEmbed = new Embed(`${app} update`, '#ffffff', null, null);
+    // cardEmbed.addField('Commit:', head);
+    // cardEmbed.addField('Update:', git_log);
+    // await DiscordUtil.sendMessage(GUILD_ID, CHANNEL_ID, app.name);
+    res.status(204).send();
   }
   catch (error) {
     console.error('webhooks.js@:', error.message);

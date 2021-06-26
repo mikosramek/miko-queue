@@ -35,8 +35,6 @@ router.post('/heroku', customParser, async (req, res) => {
     // slug.commit_description
 
     const data = _get(req, 'body.data', {});
-    console.info(req.body, 'webhooks.js@');
-    console.info(data);
     const name = _get(data, 'app.name', '-');
     const status = _get(data, 'status', 'webhook error');
     const output = _get(data, 'output_stream_url', '-');
@@ -45,7 +43,7 @@ router.post('/heroku', customParser, async (req, res) => {
     // const commitDesc = _get(data, 'slug.commit_description', '-');
     const userEmail = _get(data, 'user.email', '-');
 
-    console.info({ name, status, release, commit, commitDesc }, 'webhooks.js@');
+    console.info({ name, status, release, commit }, 'webhooks.js@');
 
     if (status === 'succeeded' && !sentSuccessNotif) {
       sentSuccessNotif = true;

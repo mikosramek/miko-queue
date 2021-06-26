@@ -40,7 +40,6 @@ router.post('/heroku', customParser, async (req, res) => {
     const commit = _get(data, 'slug.commit', '-');
     const commitDesc = _get(data, 'slug.commit_description', '-');
 
-    console.info({ lastID, release }, 'webhooks.js@');
     if (release) {
       const cardEmbed = new Embed(`${name} update`, '#ffffff', null, null);
       cardEmbed.addField('Status:', status);

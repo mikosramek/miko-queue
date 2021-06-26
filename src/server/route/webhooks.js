@@ -42,23 +42,24 @@ router.post('/heroku', customParser, async (req, res) => {
     const output = _get(data, 'output_stream_url', '-');
     const release = _get(data, 'release.version', null);
     const commit = _get(data, 'slug.commit', '-');
-    const commitDesc = _get(data, 'slug.commit_description', '-');
+    // const commitDesc = _get(data, 'slug.commit_description', '-');
+    const userEmail = _get(data, 'user.email', '-');
 
     console.info({ name, status, release, commit, commitDesc }, 'webhooks.js@');
 
     if (status === 'succeeded' && !sentSuccessNotif) {
       sentSuccessNotif = true;
       const cardEmbed = new Embed(`${name} update`, '#ffffff', output, null);
-      cardEmbed.addField('Status:', status);
+      cardEmbed.addField('Status:', status, true);
       cardEmbed.addField('Version:', release, true);
-      cardEmbed.addField('Commit Hash:', commit, true);
-      cardEmbed.addField('Update:', commitDesc || '-');
+      cardEmbed.addField('Commit Hash:', commit);
       await DiscordUtil.sendMessage(GUILD_ID, CHANNEL_ID, cardEmbed.embed);
     }
     else if (status === 'pending' && !sentPendingNotif) {
       sentPendingNotif = true;
       const cardEmbed = new Embed(`${name} update`, '#ffffff', output, null);
       cardEmbed.addField('Status:', status);
+      cardEmbed.addField('Triggered by:', userEmail);
       await DiscordUtil.sendMessage(GUILD_ID, CHANNEL_ID, cardEmbed.embed);
     }
     else if (!sendOtherNotif) {

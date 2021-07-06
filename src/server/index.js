@@ -22,13 +22,14 @@ const limiter = rateLimit({
 const serverInit = () => {
   const app = express();
   app.use(cors());
+  app.use(bodyParser.json({extended: true}));
   app.use(bodyParser.urlencoded({extended:true}));
   app.use(limiter);
 
   app.use('/notifications/', notifications);
   app.use('/proxy/', proxy);
   app.use('/image/', imageRouter);
-  app.use(debug);
+  app.use('/debug', debug); // contains webhooks
 
   app.use('/', (req, res) => {
     res.status(404).send('No endpoint here!');

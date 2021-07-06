@@ -3,9 +3,9 @@ const auth = require('../util/soft-auth');
 
 const webhooks = require('./webhooks');
 
-router.use('/debug/webhooks', webhooks);
+router.use('/webhooks', webhooks);
 
-router.use('/debug', (req, res, next) => {
+router.use('', (req, res, next) => {
   try {
     const { u, p } = req.body;
     if (auth.checkAuth(u, p)) {
@@ -21,7 +21,7 @@ router.use('/debug', (req, res, next) => {
   }
 });
 
-router.post('/debug/env', async (req, res) => {
+router.post('/env', async (req, res) => {
   try {
     const  {
       API_USER,

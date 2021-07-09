@@ -1,5 +1,5 @@
 'use strict'
-
+const config = require('../config.json');
 const magic = require('./command-libraries/magic');
 const stackoverflow = require('./command-libraries/stackoverflow');
 const ageOfSigmarWiki = require('./command-libraries/ageofsigmar-wiki');
@@ -40,4 +40,4 @@ commander.Controller.prototype.parseCommand = function(message, command, ...para
   });
 }
 
-module.exports = commander;
+module.exports = new commander.Controller(config);

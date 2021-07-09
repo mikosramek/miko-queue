@@ -45,7 +45,7 @@ router.post('/heroku', customParser, async (req, res) => {
 
     if (status === 'succeeded' && !sentSuccessNotif) {
       sentSuccessNotif = true;
-      const cardEmbed = new Embed(`${name} update`, '#ffffff', output, null);
+      const cardEmbed = new Embed(`${name} update`, '#33ff90', output, null);
       cardEmbed.addField('Status:', status, true);
       cardEmbed.addField('Version:', release, true);
       cardEmbed.addField('Commit Hash:', sha);
@@ -53,7 +53,7 @@ router.post('/heroku', customParser, async (req, res) => {
     }
     else if (status === 'pending' && !sentPendingNotif) {
       sentPendingNotif = true;
-      const cardEmbed = new Embed(`${name} update`, '#ffffff', commitUrl, null);
+      const cardEmbed = new Embed(`${name} update`, '#ffb433', commitUrl, null);
       cardEmbed.addField('Status:', status);
       cardEmbed.addField('Triggered by:', `${authorName}:${userEmail}`);
       cardEmbed.addField('Update:', message);
@@ -61,6 +61,9 @@ router.post('/heroku', customParser, async (req, res) => {
     }
     else if (!sendOtherNotif) {
       sendOtherNotif = true;
+      const cardEmbed = new Embed(`${name} update`, '#ff3333', commitUrl, null);
+      cardEmbed.addField('Status:', status);
+      await DiscordUtil.sendMessage(GUILD_ID, CHANNEL_ID, cardEmbed.embed);
     }
 
     res.status(204).send();

@@ -1,14 +1,16 @@
 const router = require('express').Router();
 const auth = require('../util/soft-auth');
-
+const commander = require('../../commandController');
 const webhooks = require('./webhooks');
 
 router.use('/webhooks', webhooks);
 
 router.use('', (req, res, next) => {
   try {
-    const { u, p } = req.body;
-    if (auth.checkAuth(u, p)) {
+    // const { u, p } = req.body;
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const [ login, password ] = Buffer.from(b64auth, 'base64').toString().split(':');
+    if (auth.checkAuth(login, password)) {
       next();
     }
     else {
@@ -20,6 +22,20 @@ router.use('', (req, res, next) => {
     res.status(400).send(error.message);
   }
 });
+
+// router.post('/simulate/command', async (req, res) => {
+//   try {
+//     const { command } = req.body;
+//     console.info({ command }, 'debug.js@');
+//     const content = command.split(/ +/);
+//     await commander.parseCommand(command, content[0], content.slice(1));
+//     res.status(204).send();
+//   }
+//   catch (error) {
+//     console.error('debug.js@:', error.message);
+//     res.status(500).send({ error });
+//   }
+// });
 
 router.post('/env', async (req, res) => {
   try {

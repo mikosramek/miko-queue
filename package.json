@@ -23,6 +23,7 @@
     "express": "^4.17.1",
     "express-rate-limit": "^5.2.6",
     "lodash.get": "^4.4.2",
+    "lunr": "^2.3.9",
     "mongodb": "^3.6.9",
     "nodemon": "^2.0.7",
     "pg": "^8.6.0",

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "dev-run",
     "start": "nodemon ./src/bot.js",
-    "start:express": "nodemon ./src/server/index.js"
+    "start:express": "nodemon ./src/server/index.js",
+    "releases": "node ./scripts/heroku-to-file.js"
   },
   "author": "mikosramek",
   "license": "ISC",

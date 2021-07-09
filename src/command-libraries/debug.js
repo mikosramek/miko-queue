@@ -81,4 +81,9 @@ debug['d-user-info'] = function(_query, message) {
   return debugEmbed.embed;
 }
 
+debug.rr = function(_query, message) {
+  if (!checkPrivilege(message)) return null;
+  return 'Reactions to this message are: ';
+}
+
 module.exports = debug;

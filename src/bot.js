@@ -24,10 +24,24 @@ client.on('message', async (message) => {
   try {
     const response = await controller.parseCommand(message, content[0], content.slice(1));
     if (response) {
-      channel.send(response);
+      await channel.send(response);
     }
   } catch(e) {
-    if (e) { channel.send(e); }
+    if (e) { await channel.send(e); }
+  }
+});
+
+client.on('messageReactionAdd', (messageReactionObject, user) => {
+  // console.log(messageReactionObject);
+  try {
+    const { message, _emoji } = messageReactionObject;
+    const { content } = message;
+    console.log(_emoji);
+    const { id, name } = _emoji;
+    message.edit(`${content} <:${name}:${id}>`);
+  }
+  catch (error) {
+    console.error('bot.js@:', error.message);
   }
 });
 

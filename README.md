@@ -28,6 +28,8 @@ Currently using the command signifier of `$`.
 - Account data lookup
 - Getting a graph for ranked spvp MMR changes
 
+![an example output of the pvp-stats command](https://miko-queue-discord.herokuapp.com/image/gw2/pvp/139587871467241474?20211747)
+
 ### Debug
 
 - Locked behind soft-auth

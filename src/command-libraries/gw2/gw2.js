@@ -3,6 +3,7 @@ const config = require('../../../config.json');
 const api = require('./api');
 const player = require('./player');
 const pvp = require('./pvp');
+const lookup = require('./lookup');
 
 
 // const { WORLDS } = require('./static-data');
@@ -14,7 +15,7 @@ const pvp = require('./pvp');
 
 const GuildWars2 = {};
 
-const subCommands = [ api, player, pvp ];
+const subCommands = [ api, player, pvp, lookup ];
 
 const helpCommander = {
   help : () => {
@@ -43,7 +44,7 @@ GuildWars2.gw2 = async function(query, message) {
 
     for (let i = 0; i < subCommands.length; i++){
       if (subCommand in subCommands[i]){
-        return await subCommands[i][subCommand](subQuery[1], discordID);
+        return await subCommands[i][subCommand](subQuery[1], discordID, subQuery.slice(2));
       }
     }
 

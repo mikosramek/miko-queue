@@ -3,7 +3,7 @@ const pw = process.env.API_PW;
 
 const checkAuth = (username, password) => {
   if (!user || !pw) return false;
-  return username === user && password === pw;
+  return (username && username === user) && ( password && password === pw);
 }
 
 module.exports = {

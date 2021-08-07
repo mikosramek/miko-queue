@@ -1,0 +1,27 @@
+[
+  {
+    "hour" : "00",
+    "minute" : "00",
+    "text" : "Daily Reset"
+  },
+  {
+    "hour" : "00",
+    "minute" : "20",
+    "text" : "Leyline Anomoly @ Iron Marches"
+  },
+  {
+    "hour" : "00",
+    "minute" : "30",
+    "text" : "Chak Gerent @ Tangled Depths"
+  },
+  {
+    "hour" : "01",
+    "minute" : "00",
+    "text" : "Octovine @ Auric Basin"
+  },
+  {
+    "hour" : "21",
+    "minute" : "20",
+    "text" : "Something?"
+  }
+]

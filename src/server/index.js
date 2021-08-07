@@ -11,6 +11,7 @@ const notifications = require('./route/notifications');
 const proxy = require('./route/proxy');
 const imageRouter = require('./route/imagesRouter');
 const debug = require('./route/debug');
+const scheduler = require('./route/scheduler');
 
 const PORT = process.env.PORT || 3000;
 
@@ -30,6 +31,7 @@ const serverInit = () => {
   app.use('/proxy/', proxy);
   app.use('/image/', imageRouter);
   app.use('/debug', debug); // contains webhooks
+  app.use('/schedule', scheduler);
 
   app.use('/', (req, res) => {
     res.status(404).send('No endpoint here!');

@@ -3,6 +3,7 @@ const utc = require('dayjs/plugin/utc');
 const spacetime = require('spacetime')
 const router = require('express').Router();
 const db = require('../../utility/mongodb/db');
+const { sort } = require('../../utility/schedule-utils');
 
 dayjs.extend(utc)
 
@@ -85,7 +86,7 @@ router.get('/', async (req, res) => {
   }
 
   const events = await db.getSchedule();
-  const parsedEvents = events.map(({ hour, minute, ...event}) => {
+  const parsedEvents = sort(events.map(({ hour, minute, ...event}) => {
     const eventTime = dayjs().utc().hour(hour).minute(minute);
     const localeEventTime = spacetime(new Date(eventTime.toISOString()).toUTCString(), 'UTC').goto('America/Toronto');
     return {
@@ -93,7 +94,7 @@ router.get('/', async (req, res) => {
       hour : localeEventTime.hour(),
       minute : localeEventTime.minute()
     }
-  });
+  }));
   res.render('schedule', { events : parsedEvents });
 });
 

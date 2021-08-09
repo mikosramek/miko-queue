@@ -1,6 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
+const { sort } = require('../../utility/schedule-utils');
+
 const base = process.env.MONGO_DB_URL;
 const user = process.env.MONGO_DB_USER;
 const pw = process.env.MONGO_DB_PW;
@@ -91,7 +93,7 @@ class DB {
       if (!this.client.isConnected()) await this.client.connect();
       const events = this.client.db('schedule').collection('events');
       const data = await events.find({}).toArray();
-      return data;
+      return sort(data);
     }
     catch (error) {
       console.error('db.js@getSchedule:', error.message);

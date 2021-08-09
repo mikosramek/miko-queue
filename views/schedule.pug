@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Scheduler
+        link(rel="stylesheet", href="/styles/style.css")
+    body
+        header
+            .wrapper
+                h1 Miko's Scheduler
+        main
+            .wrapper
+                ul#events.event-list
+                    each eventItem in events
+                      li.event-data(data-hour=eventItem.hour data-minute=eventItem.minute data-id=eventItem._id data-text=eventItem.text)
+                        h2 #{eventItem.hour % 12}:#{eventItem.minute > 9 ? eventItem.minute : `0${eventItem.minute}`} #{eventItem.hour > 12 ? 'pm' : 'am'}
+                        p #{eventItem.text}
+                        button.remove-event-button(data-id=eventItem._id) Delete Event
+                form#new-event.event-form
+                    h2 Add a new Event
+                    label(for='time') Time:
+                    input#time(type='time')
+                    label(for='message') Message:
+                    input#message
+                    button#submit(type='submit') Add
+
+    script(src="https://code.jquery.com/jquery-3.4.0.min.js")
+    script(src="/scripts/script.js")

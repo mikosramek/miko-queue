@@ -1,15 +1,17 @@
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
+const spacetime = require('spacetime')
 const router = require('express').Router();
-const schedule = require('../data/schedule.json');
+const db = require('../../utility/mongodb/db');
 
 dayjs.extend(utc)
 
-router.get('/next-event', (req, res) => {
+router.get('/next-event', async (req, res) => {
+  const events = await db.getSchedule();
   const now = dayjs().utc();
   let nextEvent = null;
   let smallestDifference = Infinity;
-  schedule.forEach((event) => {
+  events.forEach((event) => {
     const { hour, minute, text } = event;
     let eventTime = dayjs().utc().hour(hour).minute(minute);
     if (eventTime.isBefore(now)) {
@@ -26,6 +28,73 @@ router.get('/next-event', (req, res) => {
     now : now.toISOString(),
     timeUntil : nextEvent ? smallestDifference : -1
   });
+});
+
+
+router.get('/events', async (req, res) => {
+  try {
+    const events = await db.getSchedule();
+    return res.status(200).send(events);
+  }
+  catch (error) {
+    console.error('scheduler.js@:', error.message);
+    return res.status(500).send(error.message);
+  }
+});
+
+router.post('/events', async (req, res) => {
+  const { events } = req.body;
+  if (!events) return res.status(403).send('No events found in body');
+  try {
+    await db.setSchedule(events);
+  }
+  catch (error) {
+    console.error('scheduler.js@:', error.message);
+    return res.status(500).send(error.message);
+  }
+  res.status(204).send();
+});
+
+router.delete('/events', async (req, res) => {
+  const { id } = req.body;
+  if (!id) return res.status(403).send('No events found in body');
+  try {
+    await db.removeSchedule(id);
+  }
+  catch (error) {
+    console.error('scheduler.js@:', error.message);
+    return res.status(500).send(error.message);
+  }
+  res.status(204).send();
+});
+
+router.get('/', async (req, res) => {
+  const reject = () => {
+    res.setHeader('www-authenticate', 'Basic')
+    res.sendStatus(401)
+  }
+
+  const authorization = req.headers.authorization;
+
+  if (!authorization) {
+    return reject()
+  }
+  const [username, password] = Buffer.from(authorization.replace('Basic ', ''), 'base64').toString().split(':');
+  if (!(username === process.env.SCHEDULE_USER && password === process.env.SCHEDULE_PW)) {
+    return reject();
+  }
+
+  const events = await db.getSchedule();
+  const parsedEvents = events.map(({ hour, minute, ...event}) => {
+    const eventTime = dayjs().utc().hour(hour).minute(minute);
+    const localeEventTime = spacetime(new Date(eventTime.toISOString()).toUTCString(), 'UTC').goto('America/Toronto');
+    return {
+      ...event,
+      hour : localeEventTime.hour(),
+      minute : localeEventTime.minute()
+    }
+  });
+  res.render('schedule', { events : parsedEvents });
 });
 
 module.exports = router;

@@ -2,6 +2,7 @@ if(process.env.NODE_ENV !== 'production') { require('dotenv').config() }
 
 const IS_DEV = process.env.DEV || false;
 
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const rateLimit = require("express-rate-limit");
@@ -26,6 +27,9 @@ const serverInit = () => {
   app.use(bodyParser.json({extended: true}));
   app.use(bodyParser.urlencoded({extended:true}));
   app.use(limiter);
+
+  app.set('view engine', 'pug');
+  app.use(express.static(path.join(__dirname, 'public')));
 
   app.use('/notifications/', notifications);
   app.use('/proxy/', proxy);

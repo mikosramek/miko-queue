@@ -84,6 +84,61 @@ class DB {
       if (closeOnComplete) await this.cleanUp();
     }
   }
+
+  async getSchedule() {
+    try {
+      this.isQuerying = true;
+      if (!this.client.isConnected()) await this.client.connect();
+      const events = this.client.db('schedule').collection('events');
+      const data = await events.find({}).toArray();
+      return data;
+    }
+    catch (error) {
+      console.error('db.js@getSchedule:', error.message);
+      return error;
+    }
+    finally {
+      this.isQuerying = false;
+    }
+  }
+  async setSchedule(events) {
+    try {
+      this.isQuerying = true;
+      if (!this.client.isConnected()) await this.client.connect();
+      const dbEvents = this.client.db('schedule').collection('events');
+      for (let i = 0; i < events.length; i += 1) {
+        const { id = null, ...eventObject } = events[i];
+        if (id) {
+          await dbEvents.replaceOne({ _id: ObjectID(id) }, { ...eventObject }, { upsert : false });
+        }
+        else {
+          await dbEvents.insertOne(eventObject);
+        }
+      }
+    }
+    catch (error) {
+      console.error('db.js@getSchedule:', error.message);
+      return error;
+    }
+    finally {
+      this.isQuerying = false;
+    }
+  }
+  async removeSchedule(id) {
+     try {
+      this.isQuerying = true;
+      if (!this.client.isConnected()) await this.client.connect();
+      const dbEvents = this.client.db('schedule').collection('events');
+      await dbEvents.deleteOne({ _id : ObjectID(id) });
+    }
+    catch (error) {
+      console.error('db.js@getSchedule:', error.message);
+      return error;
+    }
+    finally {
+      this.isQuerying = false;
+    }
+  }
 }
 
 module.exports = new DB();

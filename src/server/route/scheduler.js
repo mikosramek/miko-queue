@@ -24,9 +24,21 @@ router.get('/next-event', async (req, res) => {
       nextEvent = event;
     }
   });
+
+
+  const timeArray = [
+    now.hour(),
+    now.minute(),
+    now.second(),
+    now.date(),
+    now.month() + 1,
+    now.year()
+  ];
+
   res.status(200).send({
     nextEvent,
-    now : now.toISOString(),
+    dateTime : now.toISOString(),
+    now : timeArray,
     timeUntil : nextEvent ? smallestDifference : -1
   });
 });

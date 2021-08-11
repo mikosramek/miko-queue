@@ -29,6 +29,16 @@ router.get('/next-event', async (req, res) => {
     }
   });
 
+  let offset = 5;
+  const month = now.month();
+  const day = now.date();
+  if (
+    (month > 3 || (month === 3 && day > 14)) &&
+    (month < 10 || (month === 10 && day < 7))
+  ) {
+    offset = 4;
+  }
+
 
   const timeArray = [
     now.hour(),
@@ -41,6 +51,7 @@ router.get('/next-event', async (req, res) => {
 
   res.status(200).send({
     nextEvent,
+    timezoneOffset : offset,
     dateTime : now.toISOString(),
     now : timeArray,
     timeUntil : nextEvent ? smallestDifference : -1

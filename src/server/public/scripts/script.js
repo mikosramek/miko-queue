@@ -25,7 +25,7 @@ const addEvent = function() {
   let offset = 5;
   const today = new Date();
   const month = today.getMonth();
-  const day = today.getMonth();
+  const day = today.getDate();
   if (
     (month > 3 || (month === 3 && day > 14)) &&
     (month < 10 || (month === 10 && day < 7))

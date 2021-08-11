@@ -21,7 +21,11 @@ router.get('/next-event', async (req, res) => {
     const difference = eventTime.diff(now, 'm');
     if (difference < smallestDifference) {
       smallestDifference = difference;
-      nextEvent = event;
+      nextEvent = {
+        hour : parseInt(hour),
+        minute : parseInt(minute),
+        text
+      };
     }
   });
 
